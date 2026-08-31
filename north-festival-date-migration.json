@@ -1,0 +1,9 @@
+{
+  "type": "event-date-migration",
+  "updates": [
+    { "title": "哆啦A梦：大雄的绘画奇遇记", "watchedDate": "2025-04", "watchGroup": "北影节" },
+    { "title": "七宗罪", "watchedDate": "2025-04", "watchGroup": "北影节" },
+    { "title": "无耻混蛋", "watchedDate": "2025-04", "watchGroup": "北影节" },
+    { "title": "帝国的毁灭", "watchedDate": "2025-04", "watchGroup": "北影节" }
+  ]
+}

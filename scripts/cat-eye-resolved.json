@@ -1,0 +1,409 @@
+{
+  "ownerId": "2091131569669410816",
+  "source": "猫眼评分截图导入（OCR/人工复核）（2026-08-26）",
+  "resolved": [],
+  "pending": [
+    {
+      "title": "惊奇队长",
+      "rating": "5",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "好像也没那么热血沸腾",
+      "rating": "7",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "恶棍天使",
+      "rating": "4",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "万万没想到",
+      "rating": "7",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "大将军师",
+      "rating": "7",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "煎饼侠",
+      "rating": "5",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "港囧",
+      "rating": "8",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "美人鱼",
+      "rating": "7",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "蜘蛛侠：英雄无归",
+      "rating": "8",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "功夫瑜伽",
+      "rating": "6",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "羞羞的铁拳",
+      "rating": "9",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "环太平洋：雷霆再起",
+      "rating": "8",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "西虹市首富",
+      "rating": "10",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "我不是药神",
+      "rating": "10",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "唐人街探案2",
+      "rating": "8",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "天气之子",
+      "rating": "8",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "白蛇：缘起",
+      "rating": "9",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "复仇者联盟4：终局之战",
+      "rating": "9",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "流浪地球",
+      "rating": "10",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "信条",
+      "rating": "8",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "误杀",
+      "rating": "8",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "名侦探柯南：绯色的子弹",
+      "rating": "6",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "名侦探柯南：万圣节的新娘",
+      "rating": "6",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "疯狂的外星人",
+      "rating": "8",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "沙丘",
+      "rating": "7",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "阿凡达",
+      "rating": "10",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "007：无暇赴死",
+      "rating": "6",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "拆弹专家2",
+      "rating": "7",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "拆弹专家",
+      "rating": "8",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "悬崖之上",
+      "rating": "7",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "唐人街探案3",
+      "rating": "5",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "扬名立万",
+      "rating": "8",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "熊出没·重返地球",
+      "rating": "7",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "万里归途",
+      "rating": "8",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "宇宙探索编辑部",
+      "rating": "1",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "闪电侠",
+      "rating": "7",
+      "reason": "豆瓣搜索失败：电影资料查询失败",
+      "candidates": []
+    },
+    {
+      "title": "蚁人与黄蜂女：量子狂潮",
+      "rating": "8",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "蜘蛛侠：纵横宇宙",
+      "rating": "10",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "保你平安",
+      "rating": "7",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "坚如磐石",
+      "rating": "7",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "消失的她",
+      "rating": "5",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "孤注一掷",
+      "rating": "8",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "从21世纪安全撤离",
+      "rating": "10",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "狗阵",
+      "rating": "6",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "三大队",
+      "rating": "7",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "周处除三害",
+      "rating": "9",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "哥斯拉大战金刚2：帝国崛起",
+      "rating": "8",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "年会不能停！",
+      "rating": "9",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "抓娃娃",
+      "rating": "9",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "飞驰人生",
+      "rating": "9",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "飞驰人生2",
+      "rating": "10",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "龙马精神",
+      "rating": "5",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "流浪地球2",
+      "rating": "10",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "独行月球",
+      "rating": "9",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "熊出没·伴我\"熊芯\"",
+      "rating": "7",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "白蛇2：青蛇劫起",
+      "rating": "8",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "秘密访客",
+      "rating": "5",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "哥斯拉大战金刚",
+      "rating": "7",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "熊出没·狂野大陆",
+      "rating": "7",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "神奇女侠1984",
+      "rating": "1",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "姜子牙",
+      "rating": "6",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "中国机长",
+      "rating": "7",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "烈火英雄",
+      "rating": "7",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "爱情公寓",
+      "rating": "3",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "毒液：最后一舞",
+      "rating": "7",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "白蛇：浮生",
+      "rating": "9",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    },
+    {
+      "title": "名侦探柯南：绀青之拳",
+      "rating": "5",
+      "reason": "没有唯一的同名豆瓣条目",
+      "candidates": []
+    }
+  ]
+}

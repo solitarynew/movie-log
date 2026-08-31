@@ -1,0 +1,4 @@
+project_id = "movie-log"
+
+[functions.movie-search]
+verify_jwt = true

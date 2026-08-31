@@ -1,0 +1,17 @@
+{
+  "version": "2.0",
+  "envId": "movie-d6g34ruu2ef5b97fe",
+  "$schema": "https://framework-1258016615.tcloudbaseapp.com/schema/latest.json",
+  "app": {
+    "serviceName": "movie-log",
+    "framework": "static",
+    "installCommand": "npm install",
+    "buildCommand": "npm run build",
+    "outputDir": "./dist/client",
+    "deployPath": "/",
+    "envVariables": {
+      "NEXT_PUBLIC_CLOUDBASE_ENV_ID": "movie-d6g34ruu2ef5b97fe",
+      "NEXT_PUBLIC_CLOUDBASE_REGION": "ap-shanghai"
+    }
+  }
+}
