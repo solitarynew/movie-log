@@ -34,7 +34,10 @@ jobs:
         env:
           NEXT_PUBLIC_SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
           NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
-          NEXT_PUBLIC_SITE_BASE_PATH: /${{ github.event.repository.name }}
+      - name: Prepare project-site paths
+        run: |
+          test -f dist/client/index.html
+          perl -pi -e 's#"/_next/#"/movie-log/_next/#g; s#`/posters/#`/movie-log/posters/#g' dist/client/index.html dist/client/_next/static/chunks/*.js
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
