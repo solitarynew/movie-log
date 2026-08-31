@@ -1,0 +1,26 @@
+name: Keep Supabase project warm
+
+on:
+  schedule:
+    - cron: '17 2 */3 * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  heartbeat:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Touch public health endpoint
+        env:
+          SUPABASE_URL: ${{ secrets.NEXT_PUBLIC_SUPABASE_URL }}
+          SUPABASE_KEY: ${{ secrets.NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
+        run: |
+          set -eu
+          response=$(curl --fail-with-body --silent --show-error \
+            "$SUPABASE_URL/rest/v1/app_health?select=id&limit=1" \
+            -H "apikey: $SUPABASE_KEY" \
+            -H "Authorization: Bearer $SUPABASE_KEY")
+          test "$response" != ""
+          echo "Supabase heartbeat succeeded"
