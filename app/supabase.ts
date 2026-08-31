@@ -242,17 +242,10 @@ export async function signInWithPassword(identifier: string, password: string) {
 
 export async function startEmailSignup(email: string, password: string, username: string) {
   const current = requireClient();
-  const result = await current.auth.signUp({ email, password, options: { data: { username } } });
-  if (result.error) throw new Error(result.error.message || '发送验证码失败');
-  return { verifyOtp: ({ token }: { token: string }) => current.auth.verifyOtp({ email, token, type: 'signup' }) };
-}
-
-export async function finishEmailSignup(verification: { verifyOtp?: (params: { token: string }) => Promise<unknown> }, code: string) {
-  if (!verification?.verifyOtp) throw new Error('验证码会话已失效，请重新发送');
-  const result = await verification.verifyOtp({ token: code });
-  const response = result as { error?: { message?: string }; data?: { user?: { id: string; email?: string } } };
-  if (response.error) throw new Error(response.error.message || '验证码错误');
-  return response.data?.user ? { id: response.data.user.id, email: response.data.user.email } : null;
+  const emailRedirectTo = typeof window !== 'undefined' ? `${window.location.origin}${window.location.pathname}` : undefined;
+  const result = await current.auth.signUp({ email, password, options: { data: { username }, emailRedirectTo } });
+  if (result.error) throw new Error(result.error.message || '发送确认邮件失败');
+  return { email, session: result.data.session };
 }
 
 export async function signOutCloud() {

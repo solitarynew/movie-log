@@ -8,7 +8,6 @@ import {
   cloudBaseConfigured,
   deleteCloudEvent,
   deleteCloudFilm,
-  finishEmailSignup,
   findOrCreateCloudCinema,
   getCloudAuth,
   getCloudUser,
@@ -177,7 +176,7 @@ export default function Home() {
   const [authOpen, setAuthOpen] = useState(false);
   const [authMode, setAuthMode] = useState<'signin' | 'signup'>('signin');
   const [authBusy, setAuthBusy] = useState(false);
-  const [pendingSignup, setPendingSignup] = useState<{ verifyOtp?: (params: { token: string }) => Promise<unknown> } | null>(null);
+  const [pendingSignup, setPendingSignup] = useState<{ email: string } | null>(null);
   const [authForm, setAuthForm] = useState({ identifier: '', email: '', username: '', password: '', code: '' });
   const [viewMode, setViewMode] = useState<ViewMode>('compact');
   const [pageView, setPageView] = useState<PageView>('records');
@@ -206,6 +205,10 @@ export default function Home() {
           const user = await getCloudUser();
           if (cancelled) return;
           setCloudUser(user);
+          if (user) {
+            setAuthOpen(false);
+            setPendingSignup(null);
+          }
           setReady(true);
         } catch {
           if (!cancelled) setNotice('Supabase 登录状态读取失败，请稍后重试。');
@@ -552,10 +555,15 @@ export default function Home() {
         setCloudUser(user || await getCloudUser()); setAuthOpen(false); setNotice('已登录 Supabase，正在同步数据');
       } else if (!pendingSignup) {
         const verification = await startEmailSignup(authForm.email.trim(), authForm.password, authForm.username.trim());
-        setPendingSignup(verification as { verifyOtp?: (params: { token: string }) => Promise<unknown> }); setNotice('验证码已发送到邮箱，请输入验证码完成注册');
+        if (verification.session) {
+          setCloudUser(await getCloudUser()); setAuthOpen(false); setNotice('账号已创建，正在同步数据');
+        } else {
+          setPendingSignup({ email: verification.email }); setNotice('确认邮件已发送，请点击邮件中的确认链接');
+        }
       } else {
-        const user = await finishEmailSignup(pendingSignup, authForm.code.trim());
-        setCloudUser(user || await getCloudUser()); setPendingSignup(null); setAuthOpen(false); setNotice('账号已创建，正在同步数据');
+        const user = await getCloudUser();
+        if (!user) { setNotice('还没有检测到确认结果，请先点击邮件中的 Confirm your mail'); return; }
+        setCloudUser(user); setPendingSignup(null); setAuthOpen(false); setNotice('账号已确认，正在同步数据');
       }
     } catch (error) { setNotice(error instanceof Error ? error.message : '登录失败'); }
     finally { setAuthBusy(false); }
@@ -583,7 +591,7 @@ export default function Home() {
         </>}
       </section>
     </div>
-    {notice && <div className="toast" role="status">{notice}</div>}{modalOpen && <RecordModalWithLookup editing={Boolean(editingId)} form={form} cinemas={store.cinemas} onChange={updateForm} onClose={() => setModalOpen(false)} onSubmit={handleSubmit} metadataBusy={metadataBusy} candidates={metadataCandidates} onAutoFill={autoFillMovie} onSelectCandidate={chooseMovieCandidate} />}{deleteConfirmation && <DeleteConfirmModal confirmation={deleteConfirmation} onCancel={() => setDeleteConfirmation(null)} onAdvance={advanceDeleteConfirmation} />}{authOpen && <CloudAuthModal mode={authMode} pendingSignup={Boolean(pendingSignup)} busy={authBusy} form={authForm} onModeChange={(mode) => { setAuthMode(mode); setPendingSignup(null); setAuthForm({ identifier: '', email: '', username: '', password: '', code: '' }); }} onChange={updateAuthForm} onClose={() => setAuthOpen(false)} onSubmit={handleAuthSubmit} />}
+    {notice && <div className="toast" role="status">{notice}</div>}{modalOpen && <RecordModalWithLookup editing={Boolean(editingId)} form={form} cinemas={store.cinemas} onChange={updateForm} onClose={() => setModalOpen(false)} onSubmit={handleSubmit} metadataBusy={metadataBusy} candidates={metadataCandidates} onAutoFill={autoFillMovie} onSelectCandidate={chooseMovieCandidate} />}{deleteConfirmation && <DeleteConfirmModal confirmation={deleteConfirmation} onCancel={() => setDeleteConfirmation(null)} onAdvance={advanceDeleteConfirmation} />}{authOpen && <CloudAuthModal mode={authMode} pendingSignup={pendingSignup} busy={authBusy} form={authForm} onModeChange={(mode) => { setAuthMode(mode); setPendingSignup(null); setAuthForm({ identifier: '', email: '', username: '', password: '', code: '' }); }} onChange={updateAuthForm} onClose={() => setAuthOpen(false)} onSubmit={handleAuthSubmit} />}
   </main>;
 }
 
@@ -907,7 +915,7 @@ function CinemaPicker({ value, cinemas, onChange }: { value: string; cinemas: Ci
   </div>;
 }
 
-function CloudAuthModal({ mode, pendingSignup, busy, form, onModeChange, onChange, onClose, onSubmit }: { mode: 'signin' | 'signup'; pendingSignup: boolean; busy: boolean; form: { identifier: string; email: string; username: string; password: string; code: string }; onModeChange: (mode: 'signin' | 'signup') => void; onChange: (key: 'identifier' | 'email' | 'username' | 'password' | 'code', value: string) => void; onClose: () => void; onSubmit: (event: FormEvent<HTMLFormElement>) => void }) {
-  const signupStep = mode === 'signup' && pendingSignup;
-  return <div className="modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) onClose(); }}><div className="modal auth-modal" role="dialog" aria-modal="true" aria-labelledby="auth-title"><div className="modal-header"><div><p className="eyebrow">SUPABASE ACCOUNT</p><h2 id="auth-title">{mode === 'signin' ? '登录你的云端档案' : signupStep ? '输入邮箱验证码' : '创建云端账号'}</h2></div><button className="modal-close" type="button" onClick={onClose} aria-label="关闭">×</button></div><form onSubmit={onSubmit}><div className="modal-body"><p className="auth-intro">登录后，电脑和手机会读取同一个 Supabase 数据库。这里不需要填写 Supabase 管理员密码，应用账号与 Supabase 控制台账号分开。</p>{mode === 'signin' ? <div className="form-grid"><label className="form-field"><span>邮箱</span><input autoFocus required type="email" value={form.identifier} onChange={(event) => onChange('identifier', fieldValue(event))} placeholder="your@email.com" /></label><label className="form-field"><span>密码</span><input required type="password" value={form.password} onChange={(event) => onChange('password', fieldValue(event))} placeholder="你的 Supabase 应用密码" /></label></div> : signupStep ? <div className="form-grid"><label className="form-field"><span>邮箱验证码</span><input autoFocus required inputMode="numeric" value={form.code} onChange={(event) => onChange('code', fieldValue(event))} placeholder="输入邮件中的验证码" /></label><p className="form-tip">验证码已发送到 {form.email}。如果没有收到，请检查垃圾邮件。</p></div> : <div className="form-grid"><label className="form-field"><span>邮箱</span><input autoFocus required type="email" value={form.email} onChange={(event) => onChange('email', fieldValue(event))} placeholder="your@email.com" /></label><label className="form-field"><span>用户名</span><input required value={form.username} onChange={(event) => onChange('username', fieldValue(event))} placeholder="英文或数字，至少 5 位" /></label><label className="form-field"><span>密码</span><input required minLength={8} type="password" value={form.password} onChange={(event) => onChange('password', fieldValue(event))} placeholder="至少 8 位" /></label></div>}<p className="auth-security"><span>●</span> 数据按 Supabase 登录用户隔离；Publishable Key 只用于浏览器端公开初始化，不是 service_role 密钥。</p></div><div className="modal-footer"><button className="text-button auth-switch" type="button" onClick={() => onModeChange(mode === 'signin' ? 'signup' : 'signin')}>{mode === 'signin' ? '第一次使用？创建账号' : '已有账号？返回登录'}</button><button className="secondary-button" type="button" onClick={onClose}>取消</button><button className="primary-button" disabled={busy} type="submit">{busy ? '处理中…' : mode === 'signin' ? '登录并同步' : signupStep ? '完成注册' : '发送验证码'} <span>→</span></button></div></form></div></div>;
+function CloudAuthModal({ mode, pendingSignup, busy, form, onModeChange, onChange, onClose, onSubmit }: { mode: 'signin' | 'signup'; pendingSignup: { email: string } | null; busy: boolean; form: { identifier: string; email: string; username: string; password: string; code: string }; onModeChange: (mode: 'signin' | 'signup') => void; onChange: (key: 'identifier' | 'email' | 'username' | 'password' | 'code', value: string) => void; onClose: () => void; onSubmit: (event: FormEvent<HTMLFormElement>) => void }) {
+  const signupStep = mode === 'signup' && Boolean(pendingSignup);
+  return <div className="modal-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) onClose(); }}><div className="modal auth-modal" role="dialog" aria-modal="true" aria-labelledby="auth-title"><div className="modal-header"><div><p className="eyebrow">SUPABASE ACCOUNT</p><h2 id="auth-title">{mode === 'signin' ? '登录你的云端档案' : signupStep ? '确认你的邮箱' : '创建云端账号'}</h2></div><button className="modal-close" type="button" onClick={onClose} aria-label="关闭">×</button></div><form onSubmit={onSubmit}><div className="modal-body"><p className="auth-intro">登录后，电脑和手机会读取同一个 Supabase 数据库。这里不需要填写 Supabase 管理员密码，应用账号与 Supabase 控制台账号分开。</p>{mode === 'signin' ? <div className="form-grid"><label className="form-field"><span>邮箱</span><input autoFocus required type="email" value={form.identifier} onChange={(event) => onChange('identifier', fieldValue(event))} placeholder="your@email.com" /></label><label className="form-field"><span>密码</span><input required type="password" value={form.password} onChange={(event) => onChange('password', fieldValue(event))} placeholder="你的 Supabase 应用密码" /></label></div> : signupStep ? <div className="form-grid"><p className="form-tip">确认邮件已发送到 <strong>{pendingSignup?.email}</strong>。</p><p className="form-tip">请打开邮件，点击蓝色的“Confirm your mail”链接。这里不是数字验证码；确认后回到本页面，系统会自动完成登录。</p></div> : <div className="form-grid"><label className="form-field"><span>邮箱</span><input autoFocus required type="email" value={form.email} onChange={(event) => onChange('email', fieldValue(event))} placeholder="your@email.com" /></label><label className="form-field"><span>用户名</span><input required value={form.username} onChange={(event) => onChange('username', fieldValue(event))} placeholder="英文或数字，至少 5 位" /></label><label className="form-field"><span>密码</span><input required minLength={8} type="password" value={form.password} onChange={(event) => onChange('password', fieldValue(event))} placeholder="至少 8 位" /></label></div>}<p className="auth-security"><span>●</span> 数据按 Supabase 登录用户隔离；Publishable Key 只用于浏览器端公开初始化，不是 service_role 密钥。</p></div><div className="modal-footer"><button className="text-button auth-switch" type="button" onClick={() => onModeChange(mode === 'signin' ? 'signup' : 'signin')}>{mode === 'signin' ? '第一次使用？创建账号' : '已有账号？返回登录'}</button><button className="secondary-button" type="button" onClick={onClose}>取消</button><button className="primary-button" disabled={busy} type="submit">{busy ? '处理中…' : mode === 'signin' ? '登录并同步' : signupStep ? '检查登录状态' : '发送确认邮件'} <span>→</span></button></div></form></div></div>;
 }
